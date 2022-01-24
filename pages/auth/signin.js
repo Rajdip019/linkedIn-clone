@@ -9,7 +9,9 @@ const signin = () => {
   return (
       <>
       <Documnet />
-    <img src="/logo.jpeg" alt="" className="w-44 md:fixed ml-5" />
+    <Link href="/">
+    <img src="/logo.jpeg" alt="" className="w-44 md:fixed ml-5 cursor-pointer" />
+    </Link>
     <div className="flex flex-col h-screen mx-auto justify-center w-[450px]">
       <div className="h-[550px] min-w-[450px] md:bg-gray-50 md:shadow-2xl rounded-xl p-8 mx-auto">
         <h1 className="text-skin-main text-3xl font-bold">SignIn</h1>

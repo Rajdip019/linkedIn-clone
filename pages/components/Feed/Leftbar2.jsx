@@ -2,7 +2,7 @@ import React from "react";
 
 const Leftbar2 = () => {
   return (
-    <div className="w-60 bg-gray-50 mx-auto mt-5 rounded-xl">
+    <div className="w-60 bg-gray-50 mx-auto mt-5 rounded-xl sticky top-5">
       <div className="w-10/12 mx-auto py-4 text-blue-600">
         <h3 className="text-xs font-semibold hover:underline cursor-pointer">
           Recents

@@ -2,7 +2,7 @@ import React from "react";
 
 const Rightbar2 = () => {
   return (
-    <div className="w-72 mx-auto mt-5 rounded-xl py-4 ">
+    <div className="w-72 mx-auto mt-5 rounded-xl py-4 sticky top-5">
       <div className="flex flex-wrap w-10/12 text-center mx-auto">
         <p className="text-xs text-gray-600 hover:text-blue-600 hover:underline mx-2 transition-all cursor-pointer my-1">
           About

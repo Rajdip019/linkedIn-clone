@@ -6,6 +6,7 @@ import Rightbar from "./components/Feed/Rightbar";
 import Rightbar2 from "./components/Feed/Rightbar2";
 import CreateArea from "./components/Feed/CreateArea";
 import Feed from "./components/Feed/Feed";
+import LeftBarMiddle from "./components/Feed/LeftBarMiddle";
 import Documnet from "./documemt";
 
 const feed = () => {
@@ -20,7 +21,13 @@ const feed = () => {
             <Leftbar2 />
           </div>
           <div className=" col-span-5 ml-auto">
+            <LeftBarMiddle />
             <CreateArea />
+            <Feed />
+            <Feed />
+            <Feed />
+            <Feed />
+            <Feed />
             <Feed />
           </div>
           <div className="mr-auto hidden xl:block col-span-2">
