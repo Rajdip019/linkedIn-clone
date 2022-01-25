@@ -8,8 +8,8 @@ const Register = () => {
   return(
     <>
     <Documnet />
-    <div className="flex flex-col h-screen mx-auto justify-center w-[450px]">
-      <div className="h-[680px] min-w-[450px] md:bg-gray-50 md:shadow-2xl rounded-xl p-8 mx-auto">
+    <div className="flex flex-col h-screen mx-auto justify-center max-w-[450px]">
+      <div className="sm:h-[680px] min-w-[450px] md:bg-gray-50 md:shadow-2xl rounded-xl p-8 mx-auto">
     <img src="/logo.jpeg" alt="" className="w-36 mx-auto" />
         <p className=" text-black text-xl mt-1 text-center">
           Join LinkedIn now - its free

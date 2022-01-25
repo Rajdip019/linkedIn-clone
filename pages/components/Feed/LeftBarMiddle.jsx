@@ -1,18 +1,18 @@
 import React from 'react';
 import { Avatar } from '@mui/material';
 
-const LeftBarMiddle = () => {
+const LeftBarMiddle = ({name, image}) => {
   return (
     <div className="max-w-[600px] mx-auto bg-white rounded-xl mt-5 px-4 pt-4 pb-2 border-gray-500 border-[1px] border-opacity-30 w-11/12 lg:hidden">
     <img src="/banner.jpg" alt="" className="rounded-t-xl h-24 w-[600px]" />
     <Avatar
-      alt="Rajdeep Sengupta"
-      src="/Profile Picture.png"
+      alt={name}
+      src= {image}
       sx={{ width: 80, height: 80 }}
       className="mx-auto -mt-12 ring-2 ring-white"
     />
     <p className="text-center mt-3 mb-1 font-semibold text-md text-gray-700">
-      Rajdeep Sengupta
+      {name}
     </p>
     <p className="text-sm w-10/12 mx-auto text-center text-gray-500">
       This is just a Linkedin Clone build by Rajdeep Sengupta, enjoy here

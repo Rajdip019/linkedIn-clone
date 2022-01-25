@@ -1,22 +1,70 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Avatar } from "@mui/material";
+import { db, storage } from "../../../firebase";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
+import { ref, getDownloadURL, uploadString } from "firebase/storage";
 
-const CreateArea = () => {
+const CreateArea = ({ name, image, email }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const [post, setPost] = useState(false);
+  const [posting, setPosting] = useState(false)
+  const filePickerRef = useRef(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const addImageToPost = (e) => {
+    const reader = new FileReader();
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
+
+    reader.onload = (readerEvent) => {
+      setSelectedFile(readerEvent.target.result);
+    };
+  };
+
+  const uploadPost = async () => {
+    //Create a post and add to firestore
+    setPosting(true)
+    const docRef = await addDoc(collection(db, "posts"), {
+      username: name,
+      caption: post,
+      profileImage: image,
+      useremail: email,
+      timestamp: serverTimestamp(),
+    });
+
+    console.log("New doc added with ID");
+    const imageRef = ref(storage, `posts/${docRef.id}/image`);
+
+    await uploadString(imageRef, selectedFile, "data_url").then(
+      async (snapshot) => {
+        const downloadURL = await getDownloadURL(imageRef);
+        await updateDoc(doc(db, "posts", docRef.id), {
+          image: downloadURL,
+        });
+      }
+    );
+    handleClose();
+    setPosting(false)
+  };
 
   return (
     <div className="max-w-[600px] mx-auto bg-white rounded-xl mt-5 px-4 pt-4 pb-2 border-gray-500 border-[1px] border-opacity-30 w-11/12">
       <div className="flex items-center w-full">
         <Avatar
-          alt="Rajdeep Sengupta"
-          src="/Profile Picture.png"
+          alt={name}
+          src={image}
           sx={{ width: 48, height: 48 }}
           className=" ring-2 ring-white"
         />
@@ -55,14 +103,12 @@ const CreateArea = () => {
                 <hr className="pb-2" />
                 <div className="flex  items-center">
                   <Avatar
-                    alt="Rajdeep Sengupta"
-                    src="/Profile Picture.png"
+                    alt={name}
+                    src={image}
                     sx={{ width: 48, height: 48 }}
                     className=" ring-2 ring-white"
                   />
-                  <p className="ml-3 font-semibold text-gray-800">
-                    Rajdeep Sengupta
-                  </p>
+                  <p className="ml-3 font-semibold text-gray-800">{name}</p>
                 </div>
                 <textarea
                   name=""
@@ -73,8 +119,24 @@ const CreateArea = () => {
                   }}
                   placeholder="What do you want to talk about?"
                 ></textarea>
+                {selectedFile ? (
+                  <>
+                    <img
+                      src={selectedFile}
+                      onClick={() => {
+                        setSelectedFile(null);
+                      }}
+                      alt=""
+                    />
+                  </>
+                ) : null}
                 <div className="flex justify-between items-center">
-                  <div className="flex items-center p-2 rounded-lg hover:bg-gray-200 cursor-pointer text-sm text-gray-700 font-semibold transition-all">
+                  <div
+                    onClick={() => {
+                      filePickerRef.current.click();
+                    }}
+                    className="flex items-center p-2 rounded-lg hover:bg-gray-200 cursor-pointer text-sm text-gray-700 font-semibold transition-all"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="h-10 w-10 p-2 text-blue-600"
@@ -88,10 +150,21 @@ const CreateArea = () => {
                       />
                     </svg>
                     Photo
+                    <input
+                      ref={filePickerRef}
+                      type="file"
+                      hidden
+                      onChange={addImageToPost}
+                    />
                   </div>
                   {post ? (
-                    <button className="font-bold bg-skin-main px-4 py-2 rounded-full text-white hover:bg-blue-800 transition-all">
-                      Post
+                    <button
+                      className="font-bold bg-skin-main px-4 py-2 rounded-full text-white hover:bg-blue-800 transition-all"
+                      onClick={() => {
+                        uploadPost();
+                      }}
+                    >
+                      {posting ? (<>Posting</>) : (<>Post</>)}
                     </button>
                   ) : (
                     <button className="font-bold bg-gray-700 px-4 py-2 rounded-full text-white transition-all">

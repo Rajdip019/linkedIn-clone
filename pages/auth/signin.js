@@ -4,15 +4,16 @@
 import React from "react";
 import Documnet from '../documemt';
 import Link from "next/link"
+import  {getProviders, signIn} from "next-auth/react"
 
-const signin = () => {
+const signin = ({ providers }) => {
   return (
       <>
       <Documnet />
     <Link href="/">
     <img src="/logo.jpeg" alt="" className="w-44 md:fixed ml-5 cursor-pointer" />
     </Link>
-    <div className="flex flex-col h-screen mx-auto justify-center w-[450px]">
+    <div className="flex flex-col h-screen mx-auto justify-center max-w-[450px]">
       <div className="h-[550px] min-w-[450px] md:bg-gray-50 md:shadow-2xl rounded-xl p-8 mx-auto">
         <h1 className="text-skin-main text-3xl font-bold">SignIn</h1>
         <p className="text-sm text-gray-600 mt-1">
@@ -54,7 +55,9 @@ const signin = () => {
           <p className="text-sm text-gray-400">Or</p>
           <div className="h-[1px] bg-gray-400 my-5 w-5/12"></div>
         </div>
-        <button className="w-full border-blue-500 border-2 rounded-full  text-skin-main py-3 font-semibold  hover:bg-blue-100 transition-all flex items-center justify-center">
+        <button className="w-full border-blue-500 border-2 rounded-full  text-skin-main py-3 font-semibold  hover:bg-blue-100 transition-all flex items-center justify-center"                 onClick={() =>
+                  signIn(providers.google.id, { callbackUrl: "/feed" })
+                }>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             x="0px"
@@ -91,5 +94,14 @@ const signin = () => {
       </>
   );
 };
+
+export async function getServerSideProps() {
+  const providers = await getProviders();
+  return {
+    props: {
+      providers,
+    },
+  };
+}
 
 export default signin;
