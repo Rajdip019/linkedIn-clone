@@ -44,18 +44,22 @@ const CreateArea = ({ name, image, email }) => {
       timestamp: serverTimestamp(),
     });
 
-    console.log("New doc added with ID");
-    const imageRef = ref(storage, `posts/${docRef.id}/image`);
 
-    await uploadString(imageRef, selectedFile, "data_url").then(
-      async (snapshot) => {
-        const downloadURL = await getDownloadURL(imageRef);
-        await updateDoc(doc(db, "posts", docRef.id), {
-          image: downloadURL,
-        });
-      }
-    );
+    if(selectedFile){
+      const imageRef = ref(storage, `posts/${docRef.id}/image`);
+  
+      await uploadString(imageRef, selectedFile, "data_url").then(
+        async (snapshot) => {
+          const downloadURL = await getDownloadURL(imageRef);
+          await updateDoc(doc(db, "posts", docRef.id), {
+            image: downloadURL,
+          });
+        }
+      );
+
+    }
     handleClose();
+    setSelectedFile(null)
     setPosting(false)
   };
 
