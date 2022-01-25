@@ -115,7 +115,7 @@ useEffect(() => {
 
       <div className="flex justify-between mt-2 sm:w-11/12 mx-auto">
         <div
-          className="flex items-center font-semibold p-2 cursor-pointer hover:bg-gray-200 rounded-lg transition-all text-gray-700 w-6/12 pl-20"
+          className="flex items-center font-semibold p-2 cursor-pointer hover:bg-gray-200 rounded-lg transition-all text-gray-700 "
           onClick={() => {
             likePost();
           }}
@@ -147,7 +147,27 @@ useEffect(() => {
           )}{" "}
           Like
         </div>
-        <div className="flex items-center font-semibold p-2 cursor-pointer hover:bg-gray-200 rounded-lg transition-all text-red-500  w-6/12 pl-16" onClick={() => {handleDelete()}}>
+        <div
+          className="flex items-center font-semibold p-2 cursor-pointer hover:bg-gray-200 rounded-lg transition-all text-gray-700"
+          onClick={handleOpen}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+            />
+          </svg>{" "}
+          Comment
+        </div>
+        <div className="flex items-center font-semibold p-2 cursor-pointer hover:bg-gray-200 rounded-lg transition-all text-red-500" onClick={() => {handleDelete()}}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5 mr-2"
