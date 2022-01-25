@@ -32,8 +32,6 @@ const feed = () => {
     []
   );
 
-  console.log(posts);
-
   return (
     <>
       <div className="bg-[#F3F3EE] min-h-screen">
