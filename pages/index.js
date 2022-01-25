@@ -104,7 +104,7 @@ export default function Home() {
             </button>
             </Link>
             <Link href="/auth/signin">
-            <button className="inline-flex text-white font-semibold  items-center py-1 md:py-2 px-5 rounded-3xl transition-all bg-skin-main hover:bg-blue-600 transition-all">
+            <button className="inline-flex text-white font-semibold  items-center py-1 md:py-2 px-5 rounded-3xl bg-skin-main hover:bg-blue-700 transition-all">
               Sign in
             </button>
             </Link>
